@@ -17,12 +17,24 @@ The dataset used for training and testing the model consists of labeled images o
 
 ## Model Architecture
 
-The model is based on a convolutional neural network (CNN) and includes:
-- Multiple convolutional layers for feature extraction.
-- Fully connected layers for classification.
-- The final layer outputs a probability distribution over the possible facial expression categories.
+For this task, I used **transfer learning** with a pretrained **ResNet18** model from the torchvision library. The original fully connected (fc) layer of the ResNet was replaced to suit the facial expression recognition task, which has 7 output classes (angry, disgust, fear, happy, neutral, sad, surprise).
 
-### Facial Expression Categories
+The final architecture looks like this:
+
+```python
+class FaceModel(nn.Module):
+  def __init__(self):
+      super().__init__()
+      self.model = models.resnet18(pretrained=True)
+      self.num_ftrs = self.model.fc.in_features
+      self.model.fc = nn.Linear(self.num_ftrs, 7)
+
+  def forward(self, x):
+      x = self.model(x)
+      return x
+```
+
+## Facial Expression Categories
 The model can predict the following facial expression classes:
 - Angry
 - Disgust
@@ -31,3 +43,34 @@ The model can predict the following facial expression classes:
 - Neutral
 - Sad
 - Surprise
+
+  ## Key Functions
+
+- **`train()`**: 
+  This function trains the model over several epochs, calculates the loss, and measures the accuracy for both training and validation datasets. It also includes a progress bar using `tqdm` to monitor the training progress.
+
+  **Parameters**:
+  - `model`: The neural network model to be trained.
+  - `trainloader`: DataLoader for the training dataset.
+  - `validloader`: DataLoader for the validation dataset.
+  - `optimizer`: Optimizer for updating the model weights.
+  - `num_epochs`: Number of training epochs.
+
+  **Example**:
+  ```python
+  train_loss, train_acc, valid_loss, valid_acc = train(model, trainloader, validloader, optimizer, num_epochs=20)'
+  ```
+
+  - **`view_results()`**: 
+  This function is used to visualize the model’s predictions compared to the actual labels. It displays images and their corresponding predicted and actual emotion labels.
+
+  **Parameters**:
+  - `images`: A batch of images.
+  - `original_label`: The corresponding ground-truth labels for the images.
+
+  **Example**:
+  ```python
+  view_results(images, labels)
+  ```
+  
+  
