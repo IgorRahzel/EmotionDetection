@@ -6,7 +6,7 @@ This repository contains the implementation of a **Facial Expression Recognition
 
 The notebook provides a step-by-step approach to:
 - Loading and preprocessing the dataset.
-- Building a convolutional neural network (CNN) architecture using PyTorch.
+- Using a pretrained ResNet18 from `torchvision.models` and adapting it to the problem.
 - Training the model on facial expression data.
 - Evaluating the model's performance.
 - Visualizing model predictions and comparing them with the actual labels.
@@ -60,6 +60,9 @@ The model can predict the following facial expression classes:
   ```python
   train_loss, train_acc, valid_loss, valid_acc = train(model, trainloader, validloader, optimizer, num_epochs=20)'
   ```
+  ![Model Loss](https://github.com/IgorRahzel/FacialRecognition/blob/1462993cfd467be4c7a3cc729edbb99aed607431/imgs/Screenshot%20from%202024-09-23%2012-28-29.png)
+
+  ![Model Accuracy](https://github.com/IgorRahzel/FacialRecognition/blob/1462993cfd467be4c7a3cc729edbb99aed607431/imgs/Screenshot%20from%202024-09-23%2012-28-42.png)
 
   - **`view_results()`**: 
   This function is used to visualize the model’s predictions compared to the actual labels. It displays images and their corresponding predicted and actual emotion labels.
@@ -72,5 +75,10 @@ The model can predict the following facial expression classes:
   ```python
   view_results(images, labels)
   ```
-  
+
+  ![IMG1](https://github.com/IgorRahzel/FacialRecognition/blob/1462993cfd467be4c7a3cc729edbb99aed607431/imgs/Screenshot%20from%202024-09-23%2012-30-18.png)
+
+  ![IMG2](https://github.com/IgorRahzel/FacialRecognition/blob/1462993cfd467be4c7a3cc729edbb99aed607431/imgs/Screenshot%20from%202024-09-23%2012-30-29.png)
+
+  ![IMG3](https://github.com/IgorRahzel/FacialRecognition/blob/1462993cfd467be4c7a3cc729edbb99aed607431/imgs/Screenshot%20from%202024-09-23%2012-31-09.png)
   
